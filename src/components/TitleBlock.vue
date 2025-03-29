@@ -23,7 +23,7 @@ const data: Ref<{
     'Web app developer',
     'Leader of clever folk',
     'Frontend engineer',
-    'Hybrid App developer',
+    'Hybrid app developer',
     'Prolific gamer',
     'PR reader and highlighter',
     'Software enthusiast',
@@ -73,7 +73,7 @@ h2 {
   font-weight: 200;
   margin: 0;
   overflow: hidden;
-  border-right: 0.1em solid orange;
+  border-right: 0.1em solid #fff;
   white-space: nowrap;
   letter-spacing: 0.1em;
 
@@ -87,6 +87,7 @@ h2 {
 .typewriter {
   display: inline-block;
   text-align: left;
+  overflow-x: visible;
 }
 
 @keyframes typing {

@@ -1,73 +1,105 @@
 <script setup lang="ts">
-defineProps<{
-  title: string
-  subtitle: string
-}>()
+export interface Item {
+  title: string;
+  subtitle: string;
+  link: string;
+  show: boolean;
+}
+
+defineProps<Item>();
 </script>
 
 <template>
-  <li>
-    <div>
-      <h3>{{ title }}</h3>
-      <p>{{ subtitle }}</p>
-    </div>
+  <li :class="{ hide: !show }">
+    <a :href="link">
+      <div>
+        <h3>{{ title }}</h3>
+        <p>{{ subtitle }}</p>
+      </div>
+    </a>
   </li>
 </template>
 
 <style scoped>
 li {
+  --border-radius: 9px;
+  --transition-delay: 0.8s;
+
+  background-image: linear-gradient(oklch(0.269 0 0), oklch(0.205 0 0));
+  border-radius: var(--border-radius);
   cursor: pointer;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 15rem;
-  background-color: oklch(0.205 0 0);
-  border-radius: 9px;
-  padding: 1.5rem;
-  background-image: linear-gradient(oklch(0.269 0 0), oklch(0.205 0 0));
-}
+  opacity: 1;
+  transform: translateX(0px);
+  transition:
+    transform var(--transition-delay),
+    opacity var(--transition-delay);
+  width: 18rem;
 
-li h3 {
-  font-size: 1.25rem;
-  font-weight: 400;
-  margin: 0 0 0.5rem 0;
-}
+  &.hide {
+    transform: translateX(200px);
+    opacity: 0;
+  }
 
-li p {
-  font-size: 1rem;
-  font-weight: 200;
-  margin: 0;
-}
+  a {
+    align-items: center;
+    border: 1px solid transparent;
+    border-radius: var(--border-radius);
+    color: inherit;
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    padding: 1.5rem;
+    text-decoration: none;
+    width: 100%;
+    transition: border-color var(--transition-delay);
 
-li:after {
-  content: '\2192';
-  font-size: 1.25rem;
-  position: relative;
-  transition: left 0.8s ease-in-out;
-}
+    &:after {
+      content: '\2192';
+      font-size: 1.25rem;
+      position: relative;
+      transition: left var(--transition-delay) ease-in-out;
+    }
 
-li:hover::after {
-  animation: linear infinite;
-  animation-name: wiggle;
-  animation-duration: 1s;
-}
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin: 0 0 0.5rem 0;
+    }
 
-li p {
-  display: inline-block;
-}
+    p {
+      display: inline-block;
+      font-size: 1rem;
+      font-weight: 200;
+      margin: 0;
 
-li p:after {
-  background-color: #fff;
-  content: '';
-  display: block;
-  height: 1px;
-  max-width: 0%;
-  transition: max-width 0.3s ease-in-out;
-  width: 100%;
-}
+      &:after {
+        background-color: #fff;
+        content: '';
+        display: block;
+        height: 1px;
+        max-width: 0%;
+        transition: max-width 0.3s ease-in-out;
+        width: 100%;
+      }
+    }
+  }
 
-li:hover p:after {
-  max-width: 100%;
+  &:hover {
+    p:after {
+      max-width: 100%;
+    }
+
+    a {
+      border-color: #fff;
+
+      &::after {
+        animation: linear infinite;
+        animation-name: wiggle;
+        animation-duration: 1s;
+      }
+    }
+  }
 }
 
 @keyframes wiggle {
