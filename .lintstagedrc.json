@@ -1,6 +1,14 @@
 {
+  "*.html": [
+    "npm run lint",
+    "npm run format"
+  ],
+  "*.css": [
+    "npm run lint",
+    "npm run format"
+  ],
   "*.ts": [
-    "prettier --write",
-    "eslint"
+    "npm run lint",
+    "npm run format"
   ]
 }
